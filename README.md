@@ -1,146 +1,140 @@
-# GL-template
-**Gormley Lab Python Project Template**
+# XArm Move and Teach
 
-A beginner-friendly Python project template that follows best practices and provides a solid foundation for new projects in the Gormley Lab.
+A Python application for controlling xArm robotic arms using an Xbox controller with move and teach functionality.
 
-## 🚀 Quick Start
+## 🚀 Features
 
-1. **Use this template** to create a new repository
-2. **Rename the package**: Change `src/package_name/` to `src/your_project_name/`
-3. **Update metadata**: Edit `src/your_project_name/__about__.py` with your project details
-4. **Install dependencies**: `pip install -r requirements.txt`
-5. **Run the example**: `python main.py`
+- **Manual Control**: Control xArm movement using Xbox controller joysticks
+- **Step Mode**: Precise incremental movements
+- **Velocity Mode**: Continuous velocity-based control
+- **Teach Mode**: Record positions and create movement sequences
+- **GOTO Mode**: Execute saved position sequences for pickup/dropoff operations
+- **Gripper Control**: Open/close gripper using controller buttons
+
+## 📋 Requirements
+
+- xArm robotic arm
+- Xbox controller (USB connected)
+- Python 3.7+
+- Required packages (see `requirements.txt`)
+
+## 🛠️ Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd XArm-move-teach
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Update xArm IP address**:
+   Edit `main.py` and change the IP address to match your xArm:
+   ```python
+   controller = XArmController(ip="192.168.1.210")  # Change this IP
+   ```
+
+## 🎮 Xbox Controller Layout
+
+- **Left Stick**: X/Y axis movement
+- **Right Stick**: Z axis (Y) and rotation (X) 
+- **A Button**: Close gripper
+- **B Button**: Open gripper
+- **Back Button**: Stop/exit controller mode
+
+## 🚀 Usage
+
+Run the application:
+```bash
+python main.py
+```
+
+### Control Modes
+
+1. **Manual Move Mode**:
+   - Choose between Step or Velocity control
+   - Adjust increment size (for step mode) or velocity
+   - Use Xbox controller to move the arm
+   - Press "Go Home" to return to home position
+
+2. **Teach Mode**:
+   - Start from home position
+   - Use manual move to position the arm
+   - Add positions to create a sequence
+   - Save the sequence with a custom name
+
+3. **GOTO Mode**:
+   - Select saved position sequences
+   - Execute pickup or dropoff operations
+   - Automatically follows the recorded path
 
 ## 📁 Project Structure
 
-This template follows the **src layout**, a Python best practice that keeps your source code organized and separate from tests, documentation, and configuration files.
-
 ```
-GL-template/
-├── main.py                          # 🎯 Entry point - run this file to start your program
-├── requirements.txt                 # 📦 List of Python packages your project needs
-├── README.md                       # 📖 Project documentation (this file)
-├── LICENSE                         # ⚖️ Legal terms for using your code
-├── attachment/                     # 📎 Store additional files and resources
-├── data/                           # 📊 Store datasets, CSV files, and raw data
-├── docs/                           # 📚 Documentation files and project notes
-├── imgs/                           # 🖼️ Images, plots, and visual outputs
-├── jsons/                          # 📋 JSON configuration and data files
-├── models/                         # 🤖 Machine learning models and saved weights
-├── notebook/                       # 📓 Jupyter notebooks for analysis and experimentation
-└── src/                            # 📂 Source code directory
-    └── package_name/               # 🐍 Your Python package (rename this!)
-        ├── __init__.py             # 🔧 Makes this directory a Python package
-        ├── __about__.py            # ℹ️ Package metadata (version, author, etc.)
-        ├── class_example.py        # 🏗️ Example class demonstrating OOP concepts
-        └── utils_example.py        # 🛠️ Utility functions for common tasks
+XArm-move-teach/
+├── main.py                     # Entry point
+├── requirements.txt            # Python dependencies
+├── xbox_controller.png         # Controller reference image
+├── xArm positions.xlsx         # Saved positions database
+└── src/
+    └── package_name/
+        ├── __init__.py         # Package initialization
+        ├── __about__.py        # Package metadata
+        └── xarm_controller.py  # Main controller class
 ```
 
-## 📚 Understanding the Components
+## 🎯 Configuration
 
-### Entry Point (`main.py`)
-- **Purpose**: The file you run to start your program
-- **What it does**: Imports your package and demonstrates its usage
-- **Key concept**: Uses `if __name__ == "__main__"` to ensure code only runs when executed directly
-
-### Package Directory (`src/package_name/`)
-- **Rename this** to match your project (use lowercase with underscores: `my_awesome_project`)
-- Contains all your project's source code
-- The `__init__.py` file makes it importable as a package
-
-### Core Files Explained
-
-| File | Purpose | When to modify |
-|------|---------|----------------|
-| `__init__.py` | Controls what gets imported from your package | When adding new classes/functions |
-| `__about__.py` | Stores project metadata (version, author, description) | At project start and version updates |
-| `class_example.py` | Template for object-oriented code | Replace with your own classes |
-| `utils_example.py` | Template for utility functions | Add general-purpose functions here |
-
-## 🎯 Getting Started Guide
-
-### Step 1: Customize Your Package
-```bash
-# Rename the package directory
-mv src/package_name src/my_project_name
-
-# Update imports in main.py to match your new package name
-# Change: from package_name import ...
-# To:     from my_project_name import ...
-```
-
-### Step 2: Update Package Metadata
-Edit `src/my_project_name/__about__.py`:
+### Home Position
+The default home position is defined in `main.py`. Modify as needed:
 ```python
-__title__ = "My Awesome Project"
-__description__ = "What your project does"
-__version__ = "1.0.0"
-__author__ = "Your Name"
-__author_email__ = "your.email@example.com"
+home_position = [-159.3, -193.5, 329.4, 180, 0, -90]
 ```
 
-### Step 3: Add Your Code
-- **Classes**: Add new `.py` files for your classes in the package directory
-- **Functions**: Use `utils_example.py` or create new utility files
-- **Imports**: Update `__init__.py` to export your new classes and functions
+### Movement Parameters
+- **Step Increment**: Default 5mm (adjustable in UI)
+- **Velocity**: Default 100mm/s (adjustable in UI)
+- **Gripper Positions**: 
+  - Open: 850
+  - Closed: 270
 
-### Step 4: Manage Dependencies
-Add any Python packages you need to `requirements.txt`:
-```
-numpy
-pandas
-matplotlib
-```
+## 📊 Position Data
 
-## 🏗️ Development Best Practices
+Taught positions are saved in `xArm positions.xlsx` with the following structure:
+- Each column represents a named sequence
+- Each cell contains position coordinates `[x, y, z, roll, pitch, yaw]`
+- Reverse sequences are automatically generated for return paths
 
-### Object-Oriented Programming (OOP)
-- **Use classes** for complex data structures and behaviors
-- **Follow naming conventions**: `ClassName` (PascalCase) for classes, `function_name` (snake_case) for functions
-- **Document your code** with docstrings
+## 🔧 Safety Features
 
-### Project Organization
-- **Keep related code together** in the same file or subdirectory
-- **Use descriptive names** for files, classes, and functions
-- **Separate concerns**: classes for objects, utils for general functions
+- **Home Position Return**: Always returns to safe home position when exiting
+- **Manual Stop**: Xbox controller back button provides immediate stop
+- **Position Validation**: Ensures arm stays within safe operating limits
 
-### Version Control
-- **Commit early and often** with descriptive messages
-- **Use .gitignore** to exclude temporary files
-- **Tag releases** when you reach milestones
+## 🐛 Troubleshooting
 
-## 🔧 Common Tasks
+### Common Issues
 
-### Adding a New Class
-1. Create a new `.py` file in your package directory
-2. Define your class with proper docstrings
-3. Import it in `__init__.py`
-4. Add it to the `__all__` list
+1. **No Xbox controller detected**:
+   - Ensure controller is connected via USB
+   - Check controller is recognized by the system
 
-### Adding Dependencies
-1. Add the package name to `requirements.txt`
-2. Install with `pip install -r requirements.txt`
-3. Import and use in your code
+2. **Cannot connect to xArm**:
+   - Verify IP address is correct
+   - Check network connectivity
+   - Ensure xArm is powered on and in ready state
 
-### Testing Your Code
-```bash
-# Run your program
-python main.py
+3. **Position file not found**:
+   - The Excel file is created automatically on first teach operation
+   - Ensure write permissions in the project directory
 
-# Check for syntax errors
-python -m py_compile src/your_package_name/*.py
-```
+## 📝 License
 
-## 📖 Learning Resources
-
-- **Python Classes**: [Official Python Tutorial on Classes](https://docs.python.org/3/tutorial/classes.html)
-- **Package Structure**: [Python Packaging Guide](https://packaging.python.org/)
-- **Best Practices**: [The Hitchhiker's Guide to Python](https://docs.python-guide.org/)
+See LICENSE file for details.
 
 ## 🤝 Contributing
 
-This template is designed for the Gormley Lab. Feel free to suggest improvements or report issues to help other lab members get started with Python development.
-
----
-
-**Happy coding!** 🐍✨
+Feel free to submit issues and enhancement requests!
