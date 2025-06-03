@@ -207,6 +207,7 @@ class XArmController:
             xbox_photo = ImageTk.PhotoImage(xbox_image)
             img_label = ttk.Label(main_frame, image=xbox_photo)
             img_label.grid(column=0, row=4, columnspan=3, pady=10)
+            img_label.image = xbox_photo  # Keep a reference to prevent garbage collection
         except FileNotFoundError:
             print("Xbox controller image not found, continuing without image")
 
@@ -263,7 +264,11 @@ class XArmController:
         for column_name in df.columns:
             for pos in df[column_name]:
                 if pos != '':
-                    pos_list.append(eval(pos))
+                    try:
+                        pos_list.append(eval(pos))
+                    except (ValueError, SyntaxError) as e:
+                        print(f"Error parsing position {pos}: {e}")
+                        continue
             pos_dict[column_name] = pos_list
             pos_dict['reverse_'+column_name] = list(reversed(pos_list))
             pos_list = []
@@ -360,7 +365,7 @@ class XArmController:
             elif mode == "teach":
                 print("Teaching mode selected. Going to home position")
                 self.go_to_home()
-                df = pd.read_excel('../../xArm positions.xlsx')
+                df = pd.read_excel('xArm positions.xlsx')
                 position_list = []
                 position_list.append(self.arm.position)
                 name = self.enter_position_name()
