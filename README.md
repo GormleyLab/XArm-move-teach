@@ -80,7 +80,7 @@ XArm-move-teach/
 ├── xbox_controller.png         # Controller reference image
 ├── xArm positions.xlsx         # Saved positions database
 └── src/
-    └── package_name/
+    └── XArm_move_teach/
         ├── __init__.py         # Package initialization
         ├── __about__.py        # Package metadata
         └── xarm_controller.py  # Main controller class
