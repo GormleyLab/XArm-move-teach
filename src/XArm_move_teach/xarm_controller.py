@@ -254,7 +254,7 @@ class XArmController:
         return response.get()
 
     def goto_position(self):
-        df = pd.read_excel('../../xArm positions.xlsx')
+        df = pd.read_excel('xArm positions.xlsx')
         df = df.fillna('')
         
         pos_dict = {}
@@ -373,7 +373,7 @@ class XArmController:
                 new_df = pd.DataFrame({name: pd.Series(position_list)})
                 df = pd.concat([df, new_df], axis=1)
                 df = df.fillna('')
-                df.to_excel('../../xArm positions.xlsx', index=False)
+                df.to_excel('xArm positions.xlsx', index=False)
             elif mode == "GOTO":
                 self.goto_position()
                 
