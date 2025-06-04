@@ -14,7 +14,7 @@ A Python application for controlling xArm robotic arms using an Xbox controller 
 ## 📋 Requirements
 
 - xArm robotic arm
-- Xbox controller (USB connected)
+- Xbox controller
 - Python 3.7+
 - Required packages (see `requirements.txt`)
 
