@@ -1,6 +1,6 @@
 __title__ = "XArm Move and Teach"
 __description__ = "XArm robot control interface with Xbox controller support for move and teach operations"
 __version__ = "1.0.0"
-__author__ = "XArm Controller Project"
+__author__ = "Adam Gormley"
 __copyright__ = "Copyright 2025, XArm Controller Project"
-__author_email__ = ""
+__author_email__ = "adam.gormley@rutgers.edu"
